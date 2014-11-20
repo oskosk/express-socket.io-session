@@ -2,3 +2,48 @@ express-socket.io-session
 =========================
 
 Share a cookie-based express-session middleware with socket.io (Experimental)
+
+On every socket connection, you'll have `socket.handshake.session` pointing to
+the same req.session you would expect in any express app handler that uses
+the `express-session` middleware module.
+
+
+##Installation
+
+```
+$ npm install oskosk/express-socket.io-session
+```
+
+
+## Usage
+
+```
+$ npm install express socket.io express-session oskosk/express-socket.io-session
+```
+
+**index.js**
+
+```
+var app = require('express')(),
+  server  = require("http").createServer(app),
+  io = require("socket.io")(server),
+  session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+  }),
+  sharedSession = require("express-socket.io-session");
+
+
+// Attach session
+app.use(session);
+
+// Share session with io sockets
+
+io.use(sharedSession(session));
+
+server.listen(3000);
+
+```
+
+##License MIT
