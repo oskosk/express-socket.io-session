@@ -14,7 +14,6 @@ module.exports = function(session) {
     var req = socket.handshake;
     var res = {};
     //Parse session cookie
-    debug("chabuka");
     cookieParser(req, res, function(err) {
       if (err) {
         debug("cookieParser errored");
