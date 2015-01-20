@@ -36,8 +36,8 @@ module.exports = function(session) {
         return next(err);
       }
       session(req, res, function(req, res) {
-        next()
+        next();
       });
     });
   };
-}
+};

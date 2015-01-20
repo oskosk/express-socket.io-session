@@ -1,6 +1,6 @@
 {
   "name": "express-socket.io-session",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Share a cookie-based express-session middleware with socket.io",
   "main": "index.js",
   "scripts": {
