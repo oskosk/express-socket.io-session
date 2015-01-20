@@ -3,6 +3,8 @@ express-socket.io-session
 
 Share a cookie-based express-session middleware with socket.io (Experimental)
 
+**THIS MODULE IS EXPERIMENTAL. IT WORKS. BUT IT WON'T WORK *AS EXPECTED* YET BECAUSE I STILL DON'T KNOW WHAT TO EXPECT FROM IT**.
+
 On every socket connection, you'll have `socket.handshake.session` pointing to
 the same req.session you would expect in any express app handler that uses
 the `express-session` middleware module.

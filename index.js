@@ -1,5 +1,20 @@
 var cookieParser = require('cookie-parser')();
 var debug = require("debug")("express-socket.io-session");
+/*
+ * Inspiration
+ * ============
+ *
+ * [socket.io and express 4 sessions]
+ * http://stackoverflow.com/questions/23494016/socket-io-and-express-4-sessions
+ *
+ * [Socket.io 1.0.5 : How to save session variables?]
+ * http://stackoverflow.com/questions/24290699/socket-io-1-0-5-how-to-save-session-variables/24380110#24380110
+ *
+ * sesion.socket.io
+ * ----------------
+ * I don't like this one because you can not reuse
+ * https://www.npmjs.org/package/session.socket.io
+ */
 
 // The express session object will be set
 // in socket.handskake.session.
@@ -11,6 +26,8 @@ var debug = require("debug")("express-socket.io-session");
  */
 module.exports = function(session) {
   return function(socket, next) {
+    debug("shipaw");
+    debug(Object.keys(socket));
     var req = socket.handshake;
     var res = {};
     //Parse session cookie
@@ -19,7 +36,9 @@ module.exports = function(session) {
         debug("cookieParser errored");
         return next(err);
       }
-      session(req, res, next);
+      session(req, res, function(req, res) {
+        next()
+      });
     });
   };
 }
