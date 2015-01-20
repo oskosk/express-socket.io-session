@@ -25,9 +25,8 @@ var debug = require("debug")("express-socket.io-session");
  * @param {Function} an express-session middleware function
  */
 module.exports = function(session) {
+  debug("Creating socket.io middleware");
   return function(socket, next) {
-    debug("shipaw");
-    debug(Object.keys(socket));
     var req = socket.handshake;
     var res = {};
     //Parse session cookie
