@@ -15,12 +15,23 @@ the `express-session` middleware module.
 ```
 $ npm install express-socket.io-session
 ```
-
-
 ## Usage
 
+        var session require("express-session")({
+            secret: "my-secret",
+            resave: true,
+            saveUninitialized: true
+        });
+        // Use sessions with express
+        app.use(session);
+        //Share the express' session with socket.io
+        io.use(require("express-socket.io-session")(session));
+## Usage example
+
 ```
+# Install express, socket.io and express-session 
 $ npm install express socket.io express-session 
+# Install this module
 $ npm install express-socket.io-session
 ```
 
@@ -48,6 +59,15 @@ io.use(sharedsession(session));
 server.listen(3000);
 
 ```
+
+## API
+
+This module exports  a **socket.io**'s middleware for using with `io.use()`
+You get a *shared session* middleware by requiring the module.
+
+**require("express-socket.io-session")( express_session_middleware )**
+
+The  `express_session_middleware` parameter is **mandatory** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
 
 ##License 
 
