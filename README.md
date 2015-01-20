@@ -13,14 +13,15 @@ the `express-session` middleware module.
 ##Installation
 
 ```
-$ npm install oskosk/express-socket.io-session
+$ npm install express-socket.io-session
 ```
 
 
 ## Usage
 
 ```
-$ npm install express socket.io express-session oskosk/express-socket.io-session
+$ npm install express socket.io express-session 
+$ npm install express-socket.io-session
 ```
 
 **index.js**
@@ -48,4 +49,6 @@ server.listen(3000);
 
 ```
 
-##License MIT
+##License 
+
+MIT
