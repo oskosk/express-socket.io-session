@@ -35,7 +35,7 @@ var app = require('express')(),
     resave: true,
     saveUninitialized: true
   }),
-  sharedSession = require("express-socket.io-session");
+  sharedsession = require("express-socket.io-session");
 
 
 // Attach session
@@ -43,7 +43,7 @@ app.use(session);
 
 // Share session with io sockets
 
-io.use(sharedSession(session));
+io.use(sharedsession(session));
 
 server.listen(3000);
 
