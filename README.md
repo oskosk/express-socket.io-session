@@ -85,7 +85,7 @@ You get a *shared session* middleware by requiring the module.
 **require("express-socket.io-session")( express_session_middleware, [cookieparser_instance] )**
 
 * `express_session_middleware` is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
-* `cookieparser_instance` is optional. If you dont provide en instance created by `require("cookie-parser")()`, this module creates one for you with defaults.
+* `cookieparser_instance` is optional. If you don't provide en instance created by [cookie-parser](https://www.npmjs.org/package/cookie-parser), this module creates one for you with defaults.
 
 ##Inspiration
 
