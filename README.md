@@ -3,9 +3,7 @@ express-socket.io-session
 
 Share a cookie-based express-session middleware with socket.io
 
-**Notice**
-
-**THIS MODULE IS EXPERIMENTAL. IT WORKS. BUT IT WON'T WORK *AS EXPECTED* YET BECAUSE I STILL DON'T KNOW WHAT TO EXPECT FROM IT.**
+**THIS MODULE WORKS FINE BUT IS EXPERIMENTAL.**
 
 **It works with express > 4.0.0 and socket.io > 1.0.0 and won't be backward compatible.**.
 
@@ -21,22 +19,30 @@ $ npm install express-socket.io-session
 ```
 ## Usage
 
-        var session require("express-session")({
-            secret: "my-secret",
-            resave: true,
-            saveUninitialized: true
-        });
-        // Use sessions with express
-        app.use(session);
-        //Share the express' session with socket.io
-        io.use(require("express-socket.io-session")(session));
+    var session require("express-session")({
+        secret: "my-secret",
+        resave: true,
+        saveUninitialized: true
+    });
+    // Use sessions with express
+    app.use(session);
+    //Share the express' session with socket.io
+    io.use(require("express-socket.io-session")(session));
 
 
 **Sharing session data with a namespaced socket**
 
     io.of('/namespace').use(sharedsession(session));
 
-## Usage example
+
+**Using your own custom [cookie-parser](https://www.npmjs.com/package/cookie-parser) instance**
+    
+    ...
+    var cookieParser = require("cookie-parser");
+    ...
+    io.use(require("express-socket.io-session")(session, cookieParser({/* your params to cookie-parser* /})));
+
+## Example
 
 ```
 # Install express, socket.io and express-session 
@@ -47,28 +53,28 @@ $ npm install express-socket.io-session
 
 **index.js**
 
-```
-var app = require('express')(),
-  server  = require("http").createServer(app),
-  io = require("socket.io")(server),
-  session = require("express-session")({
-    secret: "my-secret",
-    resave: true,
-    saveUninitialized: true
-  }),
-  sharedsession = require("express-socket.io-session");
+
+    var app = require('express')(),
+      server  = require("http").createServer(app),
+      io = require("socket.io")(server),
+      session = require("express-session")({
+        secret: "my-secret",
+        resave: true,
+        saveUninitialized: true
+      }),
+      sharedsession = require("express-socket.io-session");
 
 
-// Attach session
-app.use(session);
+    // Attach session
+    app.use(session);
 
-// Share session with io sockets
+    // Share session with io sockets
 
-io.use(sharedsession(session));
+    io.use(sharedsession(session));
 
-server.listen(3000);
+    server.listen(3000);
 
-```
+ 
 
 
 ## API
@@ -76,9 +82,24 @@ server.listen(3000);
 This module exports  a **socket.io**'s middleware for using with `io.use()`
 You get a *shared session* middleware by requiring the module.
 
-**require("express-socket.io-session")( express_session_middleware )**
+**require("express-socket.io-session")( express_session_middleware, [cookieparser_instance] )**
 
-The  `express_session_middleware` parameter is **mandatory** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
+* `express_session_middleware` is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
+* `cookieparser_instance` is optional. If you dont provide en instance created by `require("cookie-parser")()`, this module creates one for you with defaults.
+
+##Inspiration
+
+* [socket.io and express 4 sessions](http://stackoverflow.com/questions/23494016/socket-io-and-express-4-sessions)
+* [Socket.io 1.0.5 : How to save session variables?](http://stackoverflow.com/questions/24290699/socket-io-1-0-5-how-to-save-session-variables/24380110#24380110)
+
+Although there are a couple of modules that allow to share session objects between express and socket.io,
+I wanted to be able to share the modules without affecting regular `express-session` instantiation.
+
+These modules do the same work but with different approachs on initialization.
+
+* [session.socket.io](https://www.npmjs.org/package/session.socket.io) 
+* [socket.io-session-middleware](https://github.com/peerigon/socket.io-session-middleware) 
+
 
 #License 
 
