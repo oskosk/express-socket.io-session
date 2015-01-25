@@ -11,16 +11,16 @@ var debug = require("debug")("express-socket.io-session");
  * @param {Function} an express-session middleware function to reuse with express-session
  */
 module.exports = function(expressSessionMiddleware, cookieParserMiddleware) {
-  var cookieParserMiddleware,
-    socketIoSharedSessionMiddleware;
+  var socketIoSharedSessionMiddleware;
 
   if (typeof cookieParserMiddleware === 'undefined') {
     debug("No cookie-parser instance passed as argument");
-    debug("Creating a cookie-parser instance with default values")
+    debug("Creating a cookie-parser instance with default values");
     cookieParserMiddleware = cookieparser();
   }
   debug("Creating socket.io middleware");
-  var socketIoSharedSessionMiddleware = function(socket, next) {
+
+  socketIoSharedSessionMiddleware = function(socket, next) {
     var req = socket.handshake;
     var res = {};
     //Parse session cookie
