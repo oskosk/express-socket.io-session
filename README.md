@@ -12,7 +12,7 @@ the same `req.session` you would expect in any express app handler that uses
 the `express-session` middleware module.
 
 
-##Installation
+## Installation
 
 ```
 $ npm install express-socket.io-session
@@ -87,7 +87,7 @@ You get a *shared session* middleware by requiring the module.
 * `express_session_middleware` is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
 * `cookieparser_instance` is optional. If you don't provide en instance created by [cookie-parser](https://www.npmjs.org/package/cookie-parser), this module creates one for you with defaults.
 
-##Inspiration
+## Inspiration
 
 * [socket.io and express 4 sessions](http://stackoverflow.com/questions/23494016/socket-io-and-express-4-sessions)
 * [Socket.io 1.0.5 : How to save session variables?](http://stackoverflow.com/questions/24290699/socket-io-1-0-5-how-to-save-session-variables/24380110#24380110)
@@ -101,7 +101,7 @@ These modules do the same work but with different approachs on initialization.
 * [socket.io-session-middleware](https://github.com/peerigon/socket.io-session-middleware) 
 
 
-#License 
+## License 
 
 The MIT License (MIT)
 
