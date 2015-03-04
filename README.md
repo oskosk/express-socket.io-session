@@ -3,9 +3,11 @@ express-socket.io-session
 
 Share a cookie-based express-session middleware with socket.io
 
-**THIS MODULE WORKS FINE BUT IS EXPERIMENTAL.**
+**exxpress-socket.io-session** works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
 
-**It works with express > 4.0.0 and socket.io > 1.0.0 and won't be backward compatible.**.
+**Please help me notice errors or ask me for improvements [creating an issue](https://github.com/oskosk/express-socket.io-session/issues/new)**.
+
+## Overview
 
 On every socket connection, you'll have `socket.handshake.session` pointing to
 the same `req.session` you would expect in any express app handler that uses
