@@ -3,7 +3,7 @@ express-socket.io-session
 
 Share a cookie-based express-session middleware with socket.io
 
-**exxpress-socket.io-session** works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
+**express-socket.io-session** works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
 
 **Please help me notice errors or ask me for improvements [creating an issue](https://github.com/oskosk/express-socket.io-session/issues/new)**.
 
