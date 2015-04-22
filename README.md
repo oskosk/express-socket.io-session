@@ -107,7 +107,7 @@ These modules do the same work but with different approachs on initialization.
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 osk &lt;oscar@shovelapps.com&gt;
+Copyright (c) 2014-2015 osk &lt;oskosk@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
