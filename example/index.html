@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body>
+    <h1 class="text-center">Hello World</h1>
+    <p>
+      <em>Please check the browser's console and run the server with the environment variable <code>DEBUG=*</code> for understanding what's happening</em>
+    </p>
+    <h2>Set/unset session data via express middleware (A.K.A HTTP route handlers)</h2>
+    <p>
+      <a href="/login">Login </a> (A.K.A Set session variable <code>user</code>).
+    </p>
+    <p>
+      <a href="/logout">Logout</a> i.e. Unset session variable <code>user</code>.
+    </p>
+    <h2>Set/unset session data via socket.io events</h2>
+    <p>
+      <a id="loginviasocket" href="/login">Login </a> (A.K.A Set session variable <code>user</code>).
+    </p>
+    <p>
+      <a id="logoutviasocket" href="/logout">Logout</a> i.e. Unset session variable <code>user</code>.
+    </p>    
+    <!-- socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    socket = io();
+    socket.on("sessiondata", function(data) {
+      console.info("sessiondata event received. Check the console");
+      console.info("sessiondata is ", data);
+    })
+
+    socket.on("logged_in", function(data) {
+      console.info("logged_in event received. Check the console");
+      console.info("sessiondata after logged_in event is ", data);
+    }) 
+    socket.on("logged_out", function(data) {
+      console.info("logged_out event received. Check the console");
+      console.info("sessiondata after logged_out event is ", data);
+    }) 
+
+    document.getElementById("loginviasocket").addEventListener("click", function(e) {
+      socket.emit("login");
+      e.preventDefault();
+    })
+    document.getElementById("logoutviasocket").addEventListener("click", function(e) {
+      socket.emit("logout");
+      e.preventDefault();
+    })    
+    </script>
+  </body>
+</html>
