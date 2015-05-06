@@ -22,7 +22,7 @@ Don't rely on **session data autosaving** if you use an [async store](https://gi
 Use [Session.reload()](https://github.com/expressjs/session#sessionreload) and [Session.save()](https://github.com/expressjs/session#sessionsave)
 on the `socket.handshake.session` object inside your socket.io event handlers.
 
-**Please, see [More about updating and getting session data](more-about-updating-and-getting-session-data) for better understanding
+**Please, see [More about updating and getting session data](#more-about-updating-and-getting-session-data) for better understanding
 of how to read and update session data inside your socket.io event handlers**.
 
 ## Installation
