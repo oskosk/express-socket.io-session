@@ -7,10 +7,13 @@ var debug = require("debug")("express-socket.io-session");
 /**
  * Returns a middleware function that acts on socket.handshake
  *
- * @param {Function} an express-session middleware function to reuse with io.use
- * @param {Function} an express-session middleware function to reuse with express-session
+ * @param {Function} expressSessionMiddleware - An express-session middleware function to reuse with io.use
+ * @param {Function} cookieParserMiddleware - An express-session middleware function to reuse with express-session
+ * @param {Object} options - An object with some options for overriding default behaviour.
+ *   - {Boolean} autSave - If true, the session variables will be saved asyncrhonously to express-session driver
+ *                         by wrapping the method socket.on
  */
-module.exports = function(expressSessionMiddleware, cookieParserMiddleware) {
+module.exports = function(expressSessionMiddleware, cookieParserMiddleware, options) {
   var socketIoSharedSessionMiddleware;
 
   if (typeof cookieParserMiddleware === 'undefined') {
@@ -23,6 +26,13 @@ module.exports = function(expressSessionMiddleware, cookieParserMiddleware) {
   socketIoSharedSessionMiddleware = function(socket, next) {
     var req = socket.handshake;
     var res = {};
+    var _on = socket.on;
+    // Override socket.on if autoSave = true; 
+    if (options.autoSave === true) {
+      socket.on = function() {
+        _on.apply(socket, arguments);
+      };
+    }
     //Parse session cookie
     cookieParserMiddleware(req, res, function(err) {
       if (err) {
