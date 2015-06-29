@@ -17,10 +17,11 @@ module.exports = function(expressSessionMiddleware, cookieParserMiddleware, opti
   var socketIoSharedSessionMiddleware;
 
   if (typeof cookieParserMiddleware === 'undefined') {
-    debug("No cookie-parser instance passed as argument");
-    debug("Creating a cookie-parser instance with default values");
+    debug("No cookie-parser instance passed as argument. Creating a cookie-parser " +
+      "instance with default values");
     cookieParserMiddleware = cookieparser();
   }
+  options = options || {};
   debug("Creating socket.io middleware");
 
   socketIoSharedSessionMiddleware = function(socket, next) {
@@ -30,7 +31,10 @@ module.exports = function(expressSessionMiddleware, cookieParserMiddleware, opti
     // Override socket.on if autoSave = true; 
     if (options.autoSave === true) {
       socket.on = function() {
-        _on.apply(socket, arguments);
+        var _args = arguments;
+        expressSessionMiddleware(req, res, function(req, res) {
+          _on.apply(socket, _args);
+        });
       };
     }
     //Parse session cookie
