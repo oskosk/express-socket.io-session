@@ -32,6 +32,7 @@ app.use(require("express").static(__dirname));
 
 // Set session data via express request
 app.use("/login", function(req, res, next) {
+  debug("Requested /login")
   req.session.user = {
     username: "OSK"
   };
@@ -40,6 +41,7 @@ app.use("/login", function(req, res, next) {
 });
 // Unset session data via express request
 app.use("/logout", function(req, res, next) {
+  debug("Requested /logout")
   delete req.session.user;
   req.session.save();
   res.redirect("/");
@@ -49,7 +51,9 @@ app.use("/logout", function(req, res, next) {
 io.on("connection", function(socket) {
   socket.emit("sessiondata", socket.handshake.session);
   // Set session data via socket
+  debug("Emitting session data");
   socket.on("login", function() {
+    debug("Received login message");
     socket.handshake.session.user = {
       username: "OSK"
     };
@@ -59,6 +63,7 @@ io.on("connection", function(socket) {
   });
   // Unset session data via socket
   socket.on("logout", function() {
+    debug("Received logout message");
     delete socket.handshake.session.user;
     socket.handshake.session.save();
     //emit logged_out for debugging purposes of this example
