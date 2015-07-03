@@ -69,7 +69,7 @@ io.on("connection", function(socket) {
   socket.on("logout", function() {
     debug("Received logout message");
     socket.handshake.session.user = {};
-    socket.handshake.session.logged = false;
+    delete socket.handshake.session.logged;
     // socket.handshake.session.save();
     //emit logged_out for debugging purposes of this example
     debug("socket.handshake session data is %j.", socket.handshake.session);
