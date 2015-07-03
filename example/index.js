@@ -14,7 +14,9 @@ var debug = require("debug")("express-socket.io-session:example"),
 app.use(session);
 
 // Share session with io sockets
-io.use(sharedsession(session));
+io.use(sharedsession(session, {
+  autoSave: true
+}));
 
 
 //Debugging express
@@ -36,14 +38,14 @@ app.use("/login", function(req, res, next) {
   req.session.user = {
     username: "OSK"
   };
-  req.session.save();
+  //req.session.save();
   res.redirect("/");
 });
 // Unset session data via express request
 app.use("/logout", function(req, res, next) {
   debug("Requested /logout")
   delete req.session.user;
-  req.session.save();
+  //req.session.save();
   res.redirect("/");
 });
 
@@ -57,16 +59,21 @@ io.on("connection", function(socket) {
     socket.handshake.session.user = {
       username: "OSK"
     };
-    socket.handshake.session.save();
+    debug("socket.handshake session data is %j.", socket.handshake.session);
+
+    // socket.handshake.session.save();
     //emit logged_in for debugging purposes of this example
     socket.emit("logged_in", socket.handshake.session);
   });
   // Unset session data via socket
   socket.on("logout", function() {
     debug("Received logout message");
-    delete socket.handshake.session.user;
-    socket.handshake.session.save();
+    socket.handshake.session.user = {};
+    delete socket.handshake.session.logged;
+    // socket.handshake.session.save();
     //emit logged_out for debugging purposes of this example
+    debug("socket.handshake session data is %j.", socket.handshake.session);
+
     socket.emit("logged_out", socket.handshake.session);
   });
 });
