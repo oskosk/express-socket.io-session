@@ -1,35 +1,37 @@
 express-socket.io-session
 =========================
 
-Share a cookie-based express-session middleware with socket.io
-
-**express-socket.io-session** works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
+Share a cookie-based express-session middleware with socket.io. Works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
 
 **Help me notice errors or ask me for improvements [creating an issue](https://github.com/oskosk/express-socket.io-session/issues/new)**.
 
-## Overview
-
-On every socket connection, you'll have the session object at 
-**socket.handshake.session** 
-That is the same session object `req.session` you get in your route middleware when your app
-uses `express-session`.
-
-
-### Modifying session data inside socket.io event handlers
-
-Don't rely on **session data autosaving** if you use an [async store](https://github.com/expressjs/session#compatible-session-stores) for **express-session**. 
-
-Use [Session.reload()](https://github.com/expressjs/session#sessionreload) and [Session.save()](https://github.com/expressjs/session#sessionsave)
-on the `socket.handshake.session` object inside your socket.io event handlers.
-
-**Please, see [More about updating and getting session data](#more-about-updating-and-getting-session-data) for better understanding
-of how to read and update session data inside your socket.io event handlers**.
 
 ## Installation
 
 ```
 $ npm install express-socket.io-session
 ```
+
+## Overview
+
+After every socket connection, you'll have **socket.handshake.session**.
+That is the same session object `req.session` you get in your route middleware when your app
+uses [express-session](https://www.npmjs.com/package/express-session).
+
+
+### Modifying session data inside socket.io event handlers
+
+When inside express, you normally get to modify your session variables trusting
+that **express-session** saves them for you.
+
+Invoke this module with an option of `autoSave:true` in order for achieveing the
+same behaviour.
+
+    io.use(sharedsession(session, {
+        autoSave:true
+    }));
+
+
 
 ## Usage
 
@@ -38,16 +40,22 @@ $ npm install express-socket.io-session
         resave: true,
         saveUninitialized: true
     });
-    var sharedsession = require("express-socket.io-session")(session);
+    var sharedsession = require("express-socket.io-session");
     
-
-    app.use(session); // Use express-session middleware for express
+    // Use express-session middleware for express
+    app.use(session); 
     
-    io.use(sharedsession(session)); // use shared session middleware for socket.io
+    // Use shared session middleware for socket.io
+    // setting autoSave:true
+    io.use(sharedsession(session, {
+        autoSave:True
+    })); 
 
 **Sharing session data with a namespaced socket**
 
-    io.of('/namespace').use(sharedsession(session));
+    io.of('/namespace').use(sharedsession(session, {
+        autoSave: true
+    }));
 
 
 **Using your own custom [cookie-parser](https://www.npmjs.com/package/cookie-parser) instance**
@@ -90,47 +98,28 @@ $ npm install express socket.io express-session express-socket.io-session
         // Accept a login event with user's data
         socket.on("login", function(userdata) {
             socket.handshake.session.userdata = userdata;
-            socket.handshake.session.save();
         });
         socket.on("logout", function(userdata) {
             if (socket.handshake.session.userdata) {
                 delete socket.handshake.session.userdata;
-                // Save the data to the session store
-            socket.handshake.session.save();
             }
         });        
     });
 
     server.listen(3000);
 
-
-## More about updating and getting session data
-
-You may be used to `express-session` behaviour by which, you just
-modify the `session` properties and its value gets updated (even with
-using asynchronous stores like mongodb or redis). **express-session** achieves that
-by monkeypatching (and overloading) `req.end`. 
-
-The case here is that **socket.io middleware is run only once**. On connection handshake.
-The event handlers you define can't trigger the middleware. 
-
-So if you get used to accessing and saving session data **inside
-your event handlers**, with the `.reload()` 
-and `.save()` from the session object you'll do just fine.
-
-By using **express-socket.io-session** you'll find these methods in `socket.handshake.session.get()` and `socket.handshake.session.save()`
-when handling an event.
-
-
 ## API
 
-This module exports a middleware function for **socket.io**.
-This  **sharedsession** function can be used with the `io.use()` method.
+    var sharedsession = require("express-socket.io-session");
+    io.use(sharedsession(express_session));
 
-**sharedsession( express_session_middleware, [cookieparser_instance] )**
+###sharedsession( express_session, [cookieparser], [options])
 
-* `express_session_middleware` is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions.
-* `cookieparser_instance` is optional. If you don't provide en instance created by [cookie-parser](https://www.npmjs.org/package/cookie-parser), this module creates one for you with defaults.
+* **express_session** - This parameter is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions over Express.
+* **cookieparser** - Optional. If you don't provide en instance created by [cookie-parser](https://www.npmjs.org/package/cookie-parser), this module creates one for you with defaults.
+* **options** 
+  * **options.autoSave** - Boolean - If true, session will be autosaved if it has been modified
+  inside your event handler. Default: `false`.
 
 ## Inspiration
 
