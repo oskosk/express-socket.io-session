@@ -48,7 +48,7 @@ same behaviour.
     // Use shared session middleware for socket.io
     // setting autoSave:true
     io.use(sharedsession(session, {
-        autoSave:True
+        autoSave:true
     })); 
 
 **Sharing session data with a namespaced socket**
