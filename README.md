@@ -43,7 +43,7 @@ same behaviour.
     var sharedsession = require("express-socket.io-session");
     
     // Use express-session middleware for express
-    app.use(session); 
+    app.use(session);
     
     // Use shared session middleware for socket.io
     // setting autoSave:true
@@ -98,10 +98,12 @@ $ npm install express socket.io express-session express-socket.io-session
         // Accept a login event with user's data
         socket.on("login", function(userdata) {
             socket.handshake.session.userdata = userdata;
+            socket.handshake.session.save();
         });
         socket.on("logout", function(userdata) {
             if (socket.handshake.session.userdata) {
                 delete socket.handshake.session.userdata;
+                socket.handshake.session.save();
             }
         });        
     });
