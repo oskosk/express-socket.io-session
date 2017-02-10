@@ -1,28 +1,28 @@
 {
-  "name": "express-socket.io-session",
-  "version": "1.3.1",
-  "description": "Share a cookie-based express-session middleware with socket.io",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oskosk/express-socket.io-session"
-  },
-  "bugs": {
-    "url": "https://github.com/oskosk/express-socket.io-session"
-  },
-  "keywords": [
-    "socket.io",
-    "express",
-    "express-session"
-  ],
-  "author": "osk <oscar@shovelapps.com> (http://shovelapps.com/)",
-  "license": "MIT",
-  "dependencies": {
-    "cookie-parser": "~1.3.3",
-    "crc": "^3.3.0",
-    "debug": "~2.1.0"
-  }
+    "name": "express-socket.io-session",
+    "version": "1.3.2",
+    "description": "Share a cookie-based express-session middleware with socket.io",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/oskosk/express-socket.io-session"
+    },
+    "bugs": {
+        "url": "https://github.com/oskosk/express-socket.io-session"
+    },
+    "keywords": [
+        "socket.io",
+        "express",
+        "express-session"
+    ],
+    "author": "osk <oscar@shovelapps.com> (http://shovelapps.com/)",
+    "license": "MIT",
+    "dependencies": {
+        "cookie-parser": "~1.3.3",
+        "crc": "^3.3.0",
+        "debug": "~2.6.0"
+    }
 }
