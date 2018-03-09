@@ -27,45 +27,50 @@ that **express-session** saves them for you.
 Invoke this module with an option of `autoSave:true` in order for achieveing the
 same behaviour.
 
-    io.use(sharedsession(session, {
-        autoSave:true
-    }));
-
-
+```js
+io.use(sharedsession(session, {
+    autoSave:true
+}));
+```
 
 ## Usage
 
-    var session = require("express-session")({
-        secret: "my-secret",
-        resave: true,
-        saveUninitialized: true
-    });
-    var sharedsession = require("express-socket.io-session");
-    
-    // Use express-session middleware for express
-    app.use(session);
-    
-    // Use shared session middleware for socket.io
-    // setting autoSave:true
-    io.use(sharedsession(session, {
-        autoSave:true
-    })); 
+```js
+var session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+});
+var sharedsession = require("express-socket.io-session");
+
+// Use express-session middleware for express
+app.use(session);
+
+// Use shared session middleware for socket.io
+// setting autoSave:true
+io.use(sharedsession(session, {
+    autoSave:true
+})); 
+```
 
 **Sharing session data with a namespaced socket**
 
-    io.of('/namespace').use(sharedsession(session, {
-        autoSave: true
-    }));
-
+```js
+io.of('/namespace').use(sharedsession(session, {
+    autoSave: true
+}));
+```
 
 **Using your own custom [cookie-parser](https://www.npmjs.com/package/cookie-parser) instance**
-    
-    ...
-    var cookieParser = require("cookie-parser");
-    ...
-    io.use(sharedsession(session, cookieParser({
-        /* your params to cookie-parser* /
-    }));
+
+```js
+...
+var cookieParser = require("cookie-parser");
+...
+io.use(sharedsession(session, cookieParser({
+    /* your params to cookie-parser* /
+}));
+```
 
 ## Example
 
@@ -75,45 +80,48 @@ $ npm install express socket.io express-session express-socket.io-session
 
 **index.js**
 
+```js
+var app = require('express')(),
+  server  = require("http").createServer(app),
+  io = require("socket.io")(server),
+  session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+  }),
+  sharedsession = require("express-socket.io-session");
 
-    var app = require('express')(),
-      server  = require("http").createServer(app),
-      io = require("socket.io")(server),
-      session = require("express-session")({
-        secret: "my-secret",
-        resave: true,
-        saveUninitialized: true
-      }),
-      sharedsession = require("express-socket.io-session");
 
+// Attach session
+app.use(session);
 
-    // Attach session
-    app.use(session);
+// Share session with io sockets
 
-    // Share session with io sockets
+io.use(sharedsession(session));
 
-    io.use(sharedsession(session));
-
-    io.on("connection", function(socket) {
-        // Accept a login event with user's data
-        socket.on("login", function(userdata) {
-            socket.handshake.session.userdata = userdata;
-            socket.handshake.session.save();
-        });
-        socket.on("logout", function(userdata) {
-            if (socket.handshake.session.userdata) {
-                delete socket.handshake.session.userdata;
-                socket.handshake.session.save();
-            }
-        });        
+io.on("connection", function(socket) {
+    // Accept a login event with user's data
+    socket.on("login", function(userdata) {
+        socket.handshake.session.userdata = userdata;
+        socket.handshake.session.save();
     });
+    socket.on("logout", function(userdata) {
+        if (socket.handshake.session.userdata) {
+            delete socket.handshake.session.userdata;
+            socket.handshake.session.save();
+        }
+    });        
+});
 
-    server.listen(3000);
+server.listen(3000);
+```
 
 ## API
 
-    var sharedsession = require("express-socket.io-session");
-    io.use(sharedsession(express_session));
+```js
+var sharedsession = require("express-socket.io-session");
+io.use(sharedsession(express_session));
+```
 
 ###sharedsession( express_session, [cookieparser], [options])
 
