@@ -123,7 +123,7 @@ var sharedsession = require("express-socket.io-session");
 io.use(sharedsession(express_session));
 ```
 
-###sharedsession( express_session, [cookieparser], [options])
+### sharedsession( express_session, [cookieparser], [options])
 
 * **express_session** - This parameter is **required** and must be an express middleware function created with the  [express-session](https://www.npmjs.org/package/express-session) module that allows cookie-based sessions over Express.
 * **cookieparser** - Optional. If you don't provide en instance created by [cookie-parser](https://www.npmjs.org/package/cookie-parser), this module creates one for you with defaults.
