@@ -33,6 +33,21 @@ module.exports = function(expressSessionMiddleware, cookieParserMiddleware, opti
 
   socketIoSharedSessionMiddleware = function(socket, next) {
     var req = socket.handshake;
+
+    // fixed session.reload
+    var on = socket.on.bind(socket);
+    socket.on = function () {
+      let args = Array.from(arguments);
+      let cb = args.pop();
+      args.push(function(){
+         let argv = arguments;
+         req.session.reload(function () {
+            cb(...argv);
+         })
+      })
+      on(...args);
+    }
+
     var res = {
       end: function() {}
     };
@@ -42,7 +57,7 @@ module.exports = function(expressSessionMiddleware, cookieParserMiddleware, opti
     var originalId;
     var cookieId;
     var _onevent = socket.onevent;
-    // Override socket.on if autoSave = true; 
+    // Override socket.on if autoSave = true;
     if (options.autoSave === true) {
       debug("Using autoSave feature. express-session middleware will be called on every event received")
       socket.onevent = function() {
