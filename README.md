@@ -144,6 +144,10 @@ These modules do the same work but with different approachs on initialization.
 * [session.socket.io](https://www.npmjs.org/package/session.socket.io) 
 * [socket.io-session-middleware](https://github.com/peerigon/socket.io-session-middleware) 
 
+## Changelog
+
+See [changelog.txt](changelog.txt)
+
 
 ## License 
 

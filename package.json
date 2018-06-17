@@ -4,7 +4,8 @@
   "description": "Share a cookie-based express-session middleware with socket.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "changelog": "git changelog -n changelog.txt"
   },
   "repository": {
     "type": "git",
