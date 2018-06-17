@@ -43,7 +43,7 @@ module.exports = function(
 			end: function() {}
 		};
 		// originalHash, savedHash, originalId, cookieId
-		// are variables present for replicating express-session autoSaving behavioiur
+		// are variables present for replicating express-session autoSaving behaviour
 		var originalHash, savedHash;
 		var originalId;
 		var cookieId;
@@ -62,9 +62,11 @@ module.exports = function(
 				cookieId = req.sessionID;
 				originalId = req.sessionID;
 				_onevent.apply(socket, _args);
-				if (shouldSave(req)) {
-					req.session.save();
-				}
+				process.nextTick( function() {
+					if (shouldSave(req)) {
+						req.session.save();
+					}
+				} );
 			};
 		}
 		//Parse session cookie
