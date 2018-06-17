@@ -146,7 +146,7 @@ These modules do the same work but with different approachs on initialization.
 
 ## Changelog
 
-See [changelog.txt](changelog.txt)
+See [changelog.md](changelog.md)
 
 
 ## License 
