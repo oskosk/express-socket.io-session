@@ -111,11 +111,6 @@ module.exports = function(
 			return originalId === sess.id && savedHash === hash(sess);
 		}
 
-		// determine if session should be destroyed
-		function shouldDestroy(req) {
-			return req.sessionID && unsetDestroy && req.session == null;
-		}
-
 		// determine if session should be saved to store
 		function shouldSave(req) {
 			// cannot set cookie without a session ID
