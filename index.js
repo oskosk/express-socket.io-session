@@ -64,6 +64,7 @@ module.exports = function(
 				_onevent.apply(socket, _args);
 				process.nextTick( function() {
 					if (shouldSave(req)) {
+						req.session.touch();
 						req.session.save();
 					}
 				} );
