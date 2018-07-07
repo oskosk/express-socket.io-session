@@ -5,6 +5,12 @@ cache:
 node_js:
   - 10
 
+stages:
+  - lint
+  - test
+  - name: test more
+    if: branch = master
+
 jobs:
   include:
   - stage: lint
