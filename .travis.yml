@@ -11,4 +11,7 @@ jobs:
     script: yarn lint
   - stage: test
     script: yarn test
+  - stage: test more
+    node_js: 8
+    script: yarn test
 
