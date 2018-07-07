@@ -4,7 +4,7 @@
   "description": "Share a cookie-based express-session middleware with socket.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "changelog": "git changelog -n changelog.md"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "debug": "~2.6.0"
   },
   "devDependencies": {
+    "jest": "^23.3.0",
     "prettier": "^1.13.5"
   }
 }
