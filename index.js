@@ -1,6 +1,6 @@
-var cookieparser = require("cookie-parser");
-var debug = require("debug")("express-socket.io-session");
-var hash = require("./lib/hash")
+var cookieparser = require('cookie-parser');
+var debug = require('debug')('express-socket.io-session');
+var hash = require('./lib/hash');
 // The express session object will be set
 // in socket.handskake.session.
 
@@ -21,21 +21,21 @@ module.exports = function(
 	var socketIoSharedSessionMiddleware;
 
 	// Accept options as second argument if only 2 parameters passed
-	if (arguments.length == 2 && typeof cookieParserMiddleware === "object") {
+	if (arguments.length == 2 && typeof cookieParserMiddleware === 'object') {
 		options = cookieParserMiddleware;
 		cookieParserMiddleware = undefined;
 	}
 
-	if (typeof cookieParserMiddleware === "undefined") {
+	if (typeof cookieParserMiddleware === 'undefined') {
 		debug(
-			"No cookie-parser instance passed as argument. Creating a cookie-parser " +
-				"instance with default values"
+			'No cookie-parser instance passed as argument. Creating a cookie-parser ' +
+				'instance with default values'
 		);
 		cookieParserMiddleware = cookieparser();
 	}
 	options = options || {};
 	var saveUninitializedSession = options.saveUninitialized;
-	debug("Creating socket.io middleware");
+	debug('Creating socket.io middleware');
 
 	socketIoSharedSessionMiddleware = function(socket, next) {
 		var req = socket.handshake;
@@ -51,28 +51,28 @@ module.exports = function(
 		// Override socket.on if autoSave = true;
 		if (options.autoSave === true) {
 			debug(
-				"Using autoSave feature. express-session middleware will be called on every event received"
+				'Using autoSave feature. express-session middleware will be called on every event received'
 			);
 			socket.onevent = function() {
 				debug(
-					"Executing socket.onevent monkeypatched by express-socket.io-session"
+					'Executing socket.onevent monkeypatched by express-socket.io-session'
 				);
 				var _args = arguments;
 				originalHash = savedHash = hash(req.session);
 				cookieId = req.sessionID;
 				originalId = req.sessionID;
 				_onevent.apply(socket, _args);
-				process.nextTick( function() {
+				process.nextTick(function() {
 					if (shouldSave(req)) {
 						req.session.save();
 					}
-				} );
+				});
 			};
 		}
 		//Parse session cookie
 		cookieParserMiddleware(req, res, function(err) {
 			if (err) {
-				debug("cookieParser errored");
+				debug('cookieParser errored');
 				return next(err);
 			}
 			expressSessionMiddleware(req, res, function(req, res) {
@@ -98,9 +98,9 @@ module.exports = function(
 		// determine if session should be saved to store
 		function shouldSave(req) {
 			// cannot set cookie without a session ID
-			if (typeof req.sessionID !== "string") {
+			if (typeof req.sessionID !== 'string') {
 				debug(
-					"session ignored because of bogus req.sessionID %o",
+					'session ignored because of bogus req.sessionID %o',
 					req.sessionID
 				);
 				return false;
@@ -114,4 +114,3 @@ module.exports = function(
 
 	return socketIoSharedSessionMiddleware;
 };
-
