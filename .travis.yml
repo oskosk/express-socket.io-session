@@ -5,7 +5,10 @@ cache:
 node_js:
   - 10
 
-script:
-  - yarn lint
-  - yarn test
+jobs:
+  include:
+  - stage: lint
+    script: yarn lint
+  - stage: test
+    script: yarn test
 
