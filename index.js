@@ -1,6 +1,6 @@
 var cookieparser = require("cookie-parser");
 var debug = require("debug")("express-socket.io-session");
-var crc = require("crc").crc32;
+var hash = require("./lib/hash")
 // The express session object will be set
 // in socket.handskake.session.
 
@@ -85,24 +85,6 @@ module.exports = function(
 		 * in order to this module being able to comply with the autoSave options.
 		 */
 
-		/**
-		 * Hash the given `sess` object omitting changes to `.cookie`.
-		 *
-		 * @param {Object} sess
-		 * @return {String}
-		 * @private
-		 */
-
-		function hash(sess) {
-			return crc(
-				JSON.stringify(sess, function(key, val) {
-					if (key !== "cookie") {
-						return val;
-					}
-				})
-			);
-		}
-
 		// check if session has been modified
 		function isModified(sess) {
 			return originalId !== sess.id || originalHash !== hash(sess);
@@ -132,3 +114,4 @@ module.exports = function(
 
 	return socketIoSharedSessionMiddleware;
 };
+
