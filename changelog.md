@@ -1,3 +1,13 @@
+1.3.5 / 2018-07-07
+==================
+
+  * Bump version to 1.3.5 (#48)
+  * refresh maxAge before save (#43)
+  * Split lint and test in stages (#47)
+  * Add prettier-eslint based linter (#46)
+  * Add/tests (#44)
+  * Rename changelog.txt to changelog.md (#42)
+  * Add/release history (#41)
 
 1.3.4 / 2018-06-17
 ==================
