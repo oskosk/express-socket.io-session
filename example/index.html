@@ -24,7 +24,10 @@
     </p>
     <p>
       <a id="logoutviasocket" href="/logout">Logout</a> i.e. Unset session variable <code>user</code>.
-    </p>    
+    </p>
+    <p>
+      <a id="checksessionviasocket" href="/logout">Check session data</a>.
+    </p>
     <!-- socket.io -->
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
@@ -37,11 +40,15 @@
     socket.on("logged_in", function(data) {
       console.info("logged_in event received. Check the console");
       console.info("sessiondata after logged_in event is ", data);
-    }) 
+    })
     socket.on("logged_out", function(data) {
       console.info("logged_out event received. Check the console");
       console.info("sessiondata after logged_out event is ", data);
-    }) 
+    })
+    socket.on("checksession", function(data) {
+      console.info("checksession event received. Check the console");
+      console.info("sessiondata after checksession event is ", data);
+    })
 
     document.getElementById("loginviasocket").addEventListener("click", function(e) {
       socket.emit("login");
@@ -50,7 +57,11 @@
     document.getElementById("logoutviasocket").addEventListener("click", function(e) {
       socket.emit("logout");
       e.preventDefault();
-    })    
+    })
+    document.getElementById("checksessionviasocket").addEventListener("click", function(e) {
+      socket.emit("checksession");
+      e.preventDefault();
+    })
     </script>
   </body>
 </html>
