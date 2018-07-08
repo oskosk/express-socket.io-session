@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "prettier": "prettier", 
+    "prettier": "prettier",
     "test": "jest",
     "changelog": "git changelog -n changelog.md"
   },
