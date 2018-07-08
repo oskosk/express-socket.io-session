@@ -9,7 +9,7 @@ stages:
   - lint
   - test
   - name: test more
-    if: branch = master
+    if: branch = master AND type = push
 
 jobs:
   include:
