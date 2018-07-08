@@ -8,6 +8,10 @@ test('hash() hashes predictably', function() {
 test('hash() is idempotent', function() {
 	expect(hash({ a: 2 })).toBe(hash({ a: 2 }));
 });
+test('sharedsession() returns a function', function() {
+	expect(typeof sharedsession() === 'function').toBe(true);
+});
 test('sharedsession() returns a function that accepts two arguments', function() {
+	expect(typeof sharedsession() === 'function').toBe(true);
 	expect(sharedsession()).toHaveLength(2);
 });
