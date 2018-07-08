@@ -5,10 +5,19 @@ cache:
 node_js:
   - 10
 
+stages:
+  - lint
+  - test
+  - name: test more
+    if: branch = master
+
 jobs:
   include:
   - stage: lint
     script: yarn lint
   - stage: test
+    script: yarn test
+  - stage: test more
+    node_js: 8
     script: yarn test
 
