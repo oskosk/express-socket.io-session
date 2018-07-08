@@ -65,9 +65,17 @@ io.on('connection', function(socket) {
 		socket.emit('logged_in', socket.handshake.session);
 	});
 	// Unset session data via socket
+	socket.on('checksession', function() {
+		debug('Received checksession message');
+
+		debug('socket.handshake session data is %j.', socket.handshake.session);
+
+		socket.emit('checksession', socket.handshake.session);
+	});
+	// Unset session data via socket
 	socket.on('logout', function() {
 		debug('Received logout message');
-		socket.handshake.session.user = {};
+		delete socket.handshake.session.user;
 		// socket.handshake.session.save();
 		//emit logged_out for debugging purposes of this example
 		debug('socket.handshake session data is %j.', socket.handshake.session);
