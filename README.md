@@ -1,6 +1,8 @@
 express-socket.io-session
 =========================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/oskosk/express-socket.io-session.svg)](https://greenkeeper.io/)
+
 Share a cookie-based express-session middleware with socket.io. Works with **express > 4.0.0** and **socket.io > 1.0.0** and won't be backward compatible.
 
 **Help me notice errors or ask me for improvements [creating an issue](https://github.com/oskosk/express-socket.io-session/issues/new)**.
