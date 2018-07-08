@@ -8,8 +8,6 @@ node_js:
 stages:
   - lint
   - test
-  - name: test more
-    if: branch = master AND type = push
 
 jobs:
   include:
@@ -17,10 +15,12 @@ jobs:
     script: yarn lint
   - stage: test
     script: yarn test
-  - stage: test more
+  - 
+    if: branch = master AND type = push
     node_js: 8
     script: yarn test
   - 
+    if: branch = master AND type = push
     node_js: 9
     script: yarn test
 
