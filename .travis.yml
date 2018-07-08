@@ -9,7 +9,7 @@ stages:
   - lint
   - test
   - name: test more
-    if: head_branch = master
+    if: branch = master AND type = push
 
 jobs:
   include:
@@ -20,7 +20,7 @@ jobs:
   - stage: test more
     node_js: 8
     script: yarn test
-  - stage: test more
+  - 
     node_js: 9
     script: yarn test
 
