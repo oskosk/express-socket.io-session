@@ -7,7 +7,7 @@ var debug = require('debug')('express-socket.io-session:example'),
 		resave: true,
 		saveUninitialized: true
 	}),
-	sharedsession = require('../');
+	sharedsession = require('express-socket.io-session');
 
 // Attach session
 app.use(session);
