@@ -35,8 +35,5 @@
     "eslint-plugin-prettier": "^2.6.2",
     "jest": "^23.3.0",
     "prettier": "1.13.7"
-  },
-  "now": {
-	 
   }
 }

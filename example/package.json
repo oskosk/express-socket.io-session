@@ -18,7 +18,7 @@
     "start": "DEBUG='*' node index.js"
   },
   "keywords": [
-    "express-socket.io-session"
+    "express-socketio-session"
   ],
   "author": "osk <oskosk@gmail.com> (http://olopez.com.ar/)",
   "license": "MIT"
