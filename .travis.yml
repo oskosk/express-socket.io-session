@@ -24,3 +24,11 @@ jobs:
     node_js: 9
     script: yarn test
 
+# Run push builds only on aster
+branches:
+  only:
+    - master
+
+notifications:
+  email: false
+
