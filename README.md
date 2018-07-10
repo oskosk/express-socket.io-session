@@ -7,6 +7,8 @@ Share a cookie-based express-session middleware with socket.io. Works with **exp
 
 **Help me notice errors or ask me for improvements [creating an issue](https://github.com/oskosk/express-socket.io-session/issues/new)**.
 
+See [Demo](https://express-socketio-session-example.now.sh)
+
 
 ## Installation
 

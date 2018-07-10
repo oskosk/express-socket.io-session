@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "prettier": "prettier",
     "test": "jest",
-    "changelog": "git changelog -n changelog.md"
+    "changelog": "git changelog -n changelog.md",
+    "deploy-example": "now deploy example"
   },
   "repository": {
     "type": "git",

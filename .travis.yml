@@ -15,6 +15,7 @@ jobs:
     script: yarn lint
   - stage: test
     script: yarn test
+    env: SHOULD_BUILD=true
   - 
     if: branch = master AND type != pull_request
     node_js: 8
@@ -24,10 +25,27 @@ jobs:
     node_js: 9
     script: yarn test
 
+before_deploy: npm install now --no-save # Install Now CLI on Travis
+deploy:
+  - provider: script # Run a custom deployment script which we will define below
+    script: yarn deploy-example --token=$NOW_TOKEN
+    skip_cleanup: true
+    on:
+      all_branches: true
+      master: false
+      condition: $SHOULD_BUILD = true
+  - provider: script
+    script: yarn deploy-example --token=$NOW_TOKEN && now alias -A example/now.json --token=$NOW_TOKEN
+    skip_cleanup: true
+    on:
+      all_branches: true
+      master: true
+      condition: $SHOULD_BUILD = true
+
 # Run push builds only on aster
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 notifications:
   email: false
