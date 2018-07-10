@@ -38,13 +38,14 @@ deploy:
     script: yarn deploy-example --token=$NOW_TOKEN && now alias --token=$NOW_TOKEN
     skip_cleanup: true
     on:
+      all_branches: true
       master: true
       condition: $SHOULD_BUILD = true
 
 # Run push builds only on aster
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 notifications:
   email: false
