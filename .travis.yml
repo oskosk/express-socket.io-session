@@ -35,7 +35,7 @@ deploy:
       master: false
       condition: $SHOULD_BUILD = true
   - provider: script
-    script: yarn deploy-example --token=$NOW_TOKEN && now alias --token=$NOW_TOKEN
+    script: yarn deploy-example --token=$NOW_TOKEN && now alias -A example/now.json --token=$NOW_TOKEN
     skip_cleanup: true
     on:
       all_branches: true
