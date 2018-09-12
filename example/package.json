@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "cookie-parser": "~1.4.3",
-    "debug": "~3.1.0",
+    "debug": "~4.0.1",
     "express": "^4.11.0",
     "express-session": "^1.10.1",
     "session": "^0.1.0",
