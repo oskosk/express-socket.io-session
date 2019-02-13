@@ -4,7 +4,7 @@
   "description": "Example usage for the module express-socket.io-session",
   "main": "index.js",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "~1.4.4",
     "debug": "~3.1.0",
     "express": "^4.11.0",
     "express-session": "^1.10.1",
