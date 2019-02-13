@@ -24,7 +24,7 @@
   "author": "osk <oskosk@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "~1.4.4",
     "crc": "^3.3.0",
     "debug": "~3.1.0"
   },
